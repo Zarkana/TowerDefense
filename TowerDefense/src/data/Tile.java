@@ -10,6 +10,14 @@ public class Tile {
 	private Texture texture;
 	private TileType type;
 	
+	/**
+	 * Constructs a Tile object 
+	 * @param x the x position of the Tile
+	 * @param y the y position of the Tile
+	 * @param width the width of the Tile
+	 * @param height the height of the Tile
+	 * @param type the type of the Tile
+	 */
 	public Tile(float x, float y, float width, float height, TileType type){
 		this.x = x;
 		this.y = y;
