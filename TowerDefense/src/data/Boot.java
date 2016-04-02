@@ -4,19 +4,29 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
+import static org.lwjgl.opengl.GL11.*;
+
+import static helpers.Artist.*;
+
 /*
  * Boot class to start game
  */
 public class Boot {
 	
 	public Boot(){
-		Display.setTitle("CCG Game");
-		try {
-			Display.setDisplayMode(new DisplayMode(600,400));
-			Display.create();
-		} catch (LWJGLException e) {
-			e.printStackTrace();
+		
+		BeginSession();
+		
+		while(!Display.isCloseRequested()){
+			
+			DrawQuad(50, 50, 100, 100);
+			DrawQuad(150, 150, 100, 100);
+			
+			Display.update();
+			Display.sync(60);
 		}
+		
+		Display.destroy();
 	}
 	
 	public static void main(String[] args) {
