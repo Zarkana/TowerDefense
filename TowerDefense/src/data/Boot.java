@@ -4,6 +4,9 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
+/*
+ * Boot class to start game
+ */
 public class Boot {
 	
 	public Boot(){
