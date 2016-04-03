@@ -43,8 +43,8 @@ public class TileGrid {
 	 * @param yCoord the y coordinate of the new tile
 	 * @param type  the type of the new tile
 	 */
-	public void SetTile(int xCoord, int yCoord, TileType type){
-		map[xCoord][yCoord] = new Tile(xCoord * 64, yCoord * 64, 64, 64, type);
+	public void SetTile(int xPlace, int yPlace, TileType type){
+		map[xPlace][yPlace] = new Tile(xPlace * 64, yPlace * 64, 64, 64, type);
 	}
 	
 	/**
@@ -64,8 +64,7 @@ public class TileGrid {
 	public void Draw() {
 		for (int i = 0; i < map.length; i++){
 			for (int j = 0; j < map[i].length; j++){
-				Tile t = map[i][j];
-				DrawQuadTex(t.getTexture(), t.getX(), t.getY(), t.getWidth(), t.getHeight());
+				map[i][j].Draw();
 			}
 		}
 	}
