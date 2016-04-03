@@ -36,15 +36,17 @@ public class Boot {
 		
 		TileGrid grid = new TileGrid(map);
 		grid.SetTile(3, 4, grid.GetTile(5, 7).getType());
-		Enemy e = new Enemy(QuickLoad("enemy64"), grid.GetTile(10, 8), grid,  64, 64, 3);
-		Wave wave = new Wave(64, e);
-		Player player = new Player(grid);		
+		Enemy e = new Enemy(QuickLoad("enemy64"), grid.GetTile(10, 8), grid,  64, 64, 8);
+		Wave wave = new Wave(20, e);
+		Player player = new Player(grid);
+		TowerCannon tower = new TowerCannon(QuickLoad("cannonBase"), grid.GetTile(14, 7), 10);
 		while(!Display.isCloseRequested()){
 			update();			
 			
 			grid.Draw();
 			wave.Update();
 			player.Update();
+			tower.update();
 			
 			Display.update();
 			Display.sync(60);

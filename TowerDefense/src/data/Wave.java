@@ -16,6 +16,9 @@ public class Wave {
 		enemyList = new ArrayList<Enemy>();
 	}
 	
+	/**
+	 * Responsible for Updating and Drawing all the enemies on the screen
+	 */
 	public void Update() {
 		timeSinceLastSpawn += Delta();
 		if(timeSinceLastSpawn > spawnTime){
@@ -23,9 +26,12 @@ public class Wave {
 			timeSinceLastSpawn = 0;
 		}
 		
+		//Cycle through every enemy in the wave
 		for (Enemy e: enemyList) {
-			e.Update();
-			e.Draw();
+			if (e.isAlive()){
+				e.Update();
+				e.Draw();
+			}
 		}
 	}
 	private void Spawn(){

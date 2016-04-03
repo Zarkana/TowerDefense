@@ -12,7 +12,7 @@ public class Enemy {
 	private float x, y, speed;
 	private Texture texture;
 	private Tile startTile;
-	private boolean first = true;
+	private boolean first = true, alive = true;
 	private TileGrid grid;
 	
 	private ArrayList<Checkpoint> checkpoints;
@@ -47,7 +47,10 @@ public class Enemy {
 			first = false;
 		else{
 			if(CheckpointReached()) {
-				currentCheckpoint++;				
+				if(currentCheckpoint + 1 == checkpoints.size())
+						Die();
+				else
+					currentCheckpoint++;				
 			}else {
 				x += Delta() * checkpoints.get(currentCheckpoint).getxDirection() * speed;
 				y += Delta() * checkpoints.get(currentCheckpoint).getyDirection() * speed;				
@@ -72,6 +75,9 @@ public class Enemy {
 		return reached;
 	}
 	
+	/**
+	 * Finds all the checkpoints for a given enemy to follow
+	 */
 	private void PopulateCheckpointList() {
 		checkpoints.add(FindNextC(startTile, directions = FindNextD(startTile)));
 		
@@ -107,8 +113,9 @@ public class Enemy {
 		int counter = 1;
 				
 		while (!found) {
-			
-			if(s.getType() != 
+			if(s.getXPlace() + dir[0] * counter == grid.getTilesWide() ||
+					s.getYPlace() + dir[1] * counter == grid.getTilesHigh() || 
+					s.getType() != 
 					grid.GetTile(s.getXPlace() + dir[0] * counter, 
 							s.getYPlace() + dir[1] * counter).getType()){
 				found = true;
@@ -138,25 +145,28 @@ public class Enemy {
 		Tile d = grid.GetTile(s.getXPlace(), s.getYPlace() + 1);
 		Tile l = grid.GetTile(s.getXPlace() - 1, s.getYPlace());
 		
-		if (s.getType() == u.getType()) {
+		if (s.getType() == u.getType() && directions[1] != 1) {
 			dir[0] = 0;
-			dir[1] = -1;			
-		} else if (s.getType() == r.getType()) {
+			dir[1] = -1;	
+		} else if (s.getType() == r.getType() && directions[0] != -1) {
 			dir[0] = 1;
 			dir[1] = 0;
-		} else if (s.getType() == d.getType()) {
+		} else if (s.getType() == d.getType() && directions[1] != -1) {
 			dir[0] = 0;
 			dir[1] = 1;
-		} else if (s.getType() == l.getType()) {
+		} else if (s.getType() == l.getType() && directions[0] != 1) {
 			dir[0] = -1;
 			dir[1] = 0;
 		} else {
 			dir[0] = 2;
 			dir[1] = 2;
-			System.out.println("NO DIRECTION FOUND");
 		}
 		
 		return dir;
+	}
+	
+	private void Die(){
+		alive = false;
 	}
 	
 	public void Draw(){		
@@ -239,5 +249,8 @@ public class Enemy {
 		return grid;
 	}
 	
+	public boolean isAlive() {
+		return alive;
+	}
 	
 }
